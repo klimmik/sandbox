@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The Hypersonic embedded database JCA connection factory config
+$Id: hsqldb-ds.xml,v 1.15 2004/09/15 14:37:40 loubyansky Exp $ -->
+
+
+<datasources>
+   <local-tx-datasource>
+      <jndi-name>mksDS</jndi-name>
+      <connection-url>jdbc:hsqldb:${jboss.server.data.dir}${/}hypersonic${/}mksDB</connection-url>
+
+      <driver-class>org.hsqldb.jdbcDriver</driver-class>
+
+      <user-name>sa</user-name>
+      <password></password>
+
+      <min-pool-size>5</min-pool-size>
+      <max-pool-size>20</max-pool-size>
+
+      <idle-timeout-minutes>0</idle-timeout-minutes>
+      <track-statements/>
+      <!--<security-domain>HsqlDbRealm</security-domain>-->
+      <prepared-statement-cache-size>32</prepared-statement-cache-size>
+      <metadata>
+         <type-mapping>Hypersonic SQL</type-mapping>
+      </metadata>
+
+      <depends>jboss:service=Hypersonic,database=mksDB</depends>
+   </local-tx-datasource>
+
+   <mbean code="org.jboss.jdbc.HypersonicDatabase" 
+     name="jboss:service=Hypersonic,database=mksDB">
+     <attribute name="Database">mksDB</attribute>
+     <attribute name="InProcessMode">true</attribute>
+   </mbean>
+</datasources>

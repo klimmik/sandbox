@@ -1,0 +1,137 @@
+
+        var proceed = window.confirm('<fmt:message key="mg.question.removal.areYouSure" />')
+-----------------------------------------------------------------------------------------------------------
+
+todos
+
+
+MAKE REFACTORING AND TODOs BEFORE PROCEED!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+SEARCH BY DIFFERENT FIELDS
+
+EDIT SCREEN LAYOUT
+
+
+
+
+TESTS!!!!!
+
+19. common remove rules
+20. introduce hidden associations
+1. add sorting of items in associations on the presentation layer
+2. it might better to check form.isCancelled in one place rather than in several
+3. make composition=true by default for 1-1 and 1-M
+4. check session expiration on any action
+5. add a warning on 'cancel'
+7. display property should not be specified twice in domain model
+9. implement 'entities view mode' without rights to edit them
+10. why persitence.xml is not in the domain.jar?
+12. consider enums as many-to-one associations, not as fields... ?
+14. remove unused modules from the jboss server area
+15. RESOURCE_MG_NAMES_PREFIX - refactor SubmitAction
+16. think of numbers in forms, i.e. how to set entity value if field is empty
+17. extract "messages" div in JSPs to a separate JSP
+18. do not allow to press buttons more than 1 time
+
+
+
+
+
+
+
+installation instructions
+
+1. see apache-http settings below
+2. libs manually copied into server's lib directory:
+commons-beanutils.jar
+3. change build.properties - set valid jboss home and server paths
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+README
+
+http://tomcat.apache.org/connectors-doc/
+http://tomcat.apache.org/connectors-doc/reference/apache.html
+
+
+INSTALLATION GUIDE
+
+1. Download module mod_jk.so from:
+
+http://www.apache.org/dist/tomcat/tomcat-connectors/jk/binaries/win32/jk-1.2.26/
+
+--> mod_jk-1.2.26-httpd-2.2.4.so
+
+
+2. Rename the downloaded file to mod_jk.so and move it into APACHE_HOME/modules.
+
+
+3. Add the following line into httpd.conf:
+
+LoadModule jk_module modules/mod_jk.so
+
+
+4. Create workers.properties file in the APACHE_HOME/conf folder with the following content:
+
+worker.ajp13.type=ajp13
+worker.ajp13.host=localhost
+worker.ajp13.port=8009
+
+
+5. Add following lines into httpd.conf:
+
+<IfModule jk_module>
+    JkWorkersFile conf/workers.properties
+    JkLogFile logs/jk_module.log
+    JkLogLevel debug
+</IfModule>
+
+
+6. Add following lines into virtual host config:
+
+    <IfModule jk_module>
+        JkMount /* ajp13
+        SetEnvIf REQUEST_URI \.(css)$ no-jk
+    </IfModule>
+
+
+
+
+
+<VirtualHost *:80>
+
+    ServerName localhost:80
+
+    DocumentRoot "d:/prog/work/tour/content"
+
+    <Directory "d:/prog/work/tour/content">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    <IfModule jk_module>
+        JkMount /* ajp13
+        SetEnvIf REQUEST_URI \.(css)$ no-jk
+    </IfModule>
+
+</VirtualHost>
+
+
+
+-----------------------------------------------------------------------------------------------------------

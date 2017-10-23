@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application
+    xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+    version="1.4">
+
+    <display-name>EAR</display-name>
+
+    <!-- Domain and util classes -->
+    <module>
+        <java>mks-common.jar</java>
+    </module>
+
+    <!-- Stateless session beans -->
+    <module>
+        <java>mks-ejb.jar</java>
+    </module>
+
+    <!-- Web application -->
+    <module>
+        <web>
+            <web-uri>mks.war</web-uri>
+            <context-root>mks</context-root>
+        </web>
+    </module>
+
+</application>

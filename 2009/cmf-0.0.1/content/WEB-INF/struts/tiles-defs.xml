@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+        "http://struts.apache.org/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+    
+    <definition name=".template" path="/WEB-INF/jsp/tiles/template.jsp">
+        <put name="html-head" value="/WEB-INF/jsp/tiles/html-head.jsp" />
+    </definition>
+
+    <definition name=".index" extends=".template">
+        <put name="title" value="index.title" />
+        <put name="content" value="/WEB-INF/jsp/index.jsp" />
+    </definition>
+
+</tiles-definitions>

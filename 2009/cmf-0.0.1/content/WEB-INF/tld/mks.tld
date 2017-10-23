@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+
+    <description>JSTL mks auxiliary tags</description>
+    <display-name>JSTL mks</display-name>
+    <tlib-version>1.1</tlib-version>
+    <short-name>mks</short-name>
+    <uri>http://mks.org/jsp/jstl/mks</uri>
+
+    <tag>
+        <description>
+            Returns an uncapitalized simple name of the given class
+        </description>
+        <name>uncapitalizedSimpleName</name>
+        <tag-class>com.mks.app.tag.UncapitalizedSimpleNameTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <description>
+                Class
+            </description>
+            <name>clazz</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Class</type>
+        </attribute>
+    </tag>
+
+    <tag>
+      <description>
+          Returns the hash code of the given object
+          as an unsigned integer in base16.
+      </description>
+      <name>hashCode</name>
+      <tag-class>com.mks.app.tag.ObjectHashCodeTag</tag-class>
+      <body-content>empty</body-content>
+      <attribute>
+          <description>
+              Object
+          </description>
+          <name>object</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+          <type>java.lang.Object</type>
+      </attribute>
+    </tag>
+
+    <tag>
+      <description>
+          Simple conditional tag that establishes a context for
+          mutually exclusive conditional operations, marked by
+          &lt;when&gt; and &lt;otherwise&gt;
+      </description>
+      <name>choose</name>
+      <tag-class>org.apache.taglibs.standard.tag.common.core.ChooseTag</tag-class>
+      <body-content>JSP</body-content>
+    </tag>
+
+    <tag>
+      <description>
+          Evalutes the nested body content of this tag if the given
+          class is a date.
+      </description>
+      <name>whenDate</name>
+      <tag-class>com.mks.app.tag.WhenDateTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>
+                Class
+            </description>
+            <name>clazz</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Class</type>
+        </attribute>
+    </tag>
+
+    <tag>
+      <description>
+          Evalutes the nested body content of this tag if the given
+          class is a subclass of java.lang.Enum.
+      </description>
+      <name>whenEnum</name>
+      <tag-class>com.mks.app.tag.WhenEnumTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>
+                Class
+            </description>
+            <name>clazz</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Class</type>
+        </attribute>
+    </tag>
+
+    <tag>
+      <description>
+          Evalutes the nested body content of this tag if the given
+          class is a subclass of java.lang.Boolean.
+      </description>
+      <name>whenBoolean</name>
+      <tag-class>com.mks.app.tag.WhenBooleanTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>
+                Class
+            </description>
+            <name>clazz</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Class</type>
+        </attribute>
+    </tag>
+</taglib>

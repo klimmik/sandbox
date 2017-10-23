@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<web-app xmlns:j2ee="http://java.sun.com/xml/ns/j2ee" version="2.4">
+
+    <!-- ========================================================== -->
+    <!-- General -->
+    <!-- ========================================================== -->
+
+    <!-- Set timeout to 30 minutes -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- ========================================================== -->
+    <!-- Context Parameters -->
+    <!-- ========================================================== -->
+
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>resources.application</param-value>
+    </context-param>
+
+    <!-- ========================================================== -->
+    <!-- Servlets -->
+    <!-- ========================================================== -->
+
+    <servlet>
+        <servlet-name>StrutsServlet</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config/manager</param-name>
+            <param-value>/WEB-INF/struts/struts-config-manager.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StrutsServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- ========================================================== -->
+    <!-- Error Handler -->
+    <!-- ========================================================== -->
+
+    <!-- Define an error handler for 404 pages -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/</location>
+    </error-page>
+
+    <!-- Define an error handler for java.lang.Throwable -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/</location>
+    </error-page>
+
+    <!-- ========================================================== -->
+    <!-- Welcome Files -->
+    <!-- ========================================================== -->
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>

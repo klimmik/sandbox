@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #eee;
+    color: #333;
+    text-align: center;
+    font: 100% Arial, Verdana, sans-serif;
+}
+
+a:link,
+a:visited {
+    color: #333;
+}
+
+a:active,
+a:hover {
+    color: #9400d3;
+}
+
+/* ----------- WRAPPER --------------*/
+div#wrapper {
+    background: #ccc;
+    text-align: left;
+    width: 748px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+/* ----------- HEADER --------------*/
+div#header {
+}
+
+div#top {
+    text-align: center;
+    padding-top: 5px;
+}
+
+div#nav {
+    background: #eee;
+    margin: 7px 7px 7px 7px;
+    padding: 3px 7px 3px 7px;
+}
+
+/* ----------- CONTENT --------------*/
+div#content {
+    background: #fff;
+    margin: 7px 7px 7px 7px;
+    padding: 7px 7px 7px 7px;
+}
+
+div#content h1 {
+    font-size: x-large;
+    margin: 5px 0 10px 0;
+}
+
+div#content .messages {
+    margin-bottom: 10px;
+    color: #ff0000;
+    /*border: 1px solid #ff0000;*/
+}
+
+/*--- edit table ---*/
+.edit-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: #f6ffff;
+}
+.edit-table thead {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+}
+.edit-table tfoot {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+}
+.edit-table th {
+    padding: 5px;
+}
+.edit-table td {
+    padding: 5px;
+    border-width: 1px;
+    border-style: dotted;
+    border-color: gray;
+    background-color: #f0fff0;
+}
+.edit-table input {
+    border-width: 1px;
+    border-style: solid;
+}
+.edit-table select {
+    width: 145px;
+    border-width: 1px;
+    border-style: solid;
+}
+.edit-table-associations {
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 0;
+}
+.edit-table-associations td {
+    padding: 2px;
+    border-width: 0;
+    background-color: #eeeeee;
+}
+
+/*--- search results ---*/
+.search-results {
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: #fffafa;
+}
+.search-results thead {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+}
+.search-results tfoot {
+    border-width: 1px;
+    border-style: solid;
+    border-color: gray;
+}
+.search-results th {
+    padding: 5px;
+}
+.search-results td {
+    padding: 5px;
+    border-width: 1px;
+    border-style: dotted;
+    border-color: gray;
+    background-color: #fffff0;
+}
+.search-results input {
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* ----------- FOOTER --------------*/
+div#footer {
+    text-align: center;
+    padding-bottom: 5px;
+}

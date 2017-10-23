@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+        "http://struts.apache.org/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    <definition name=".manager.template" extends=".template">
+        <put name="html-head" value="/WEB-INF/jsp/tiles/manager/html-head.jsp" />
+        <put name="header" value="/WEB-INF/jsp/tiles/manager/header.jsp" />
+        <put name="footer" value="/WEB-INF/jsp/tiles/manager/footer.jsp" />
+    </definition>
+
+    <definition name=".manager.home" extends=".manager.template">
+        <put name="title" value="mg.home.title" />
+        <put name="content" value="/WEB-INF/jsp/manager/home.jsp" />
+    </definition>
+
+    <definition name=".manager.searchResults" extends=".manager.template">
+        <put name="title" value="mg.searchResults.title" />
+        <put name="content" value="/WEB-INF/jsp/manager/searchResults.jsp" />
+    </definition>
+
+    <definition name=".manager.editEntity" extends=".manager.template">
+        <put name="title" value="mg.editEntity.title" />
+        <put name="content" value="/WEB-INF/jsp/manager/editEntity.jsp" />
+    </definition>
+
+</tiles-definitions>

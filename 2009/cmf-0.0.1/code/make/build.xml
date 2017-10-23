@@ -1,0 +1,137 @@
+<project name="mks" basedir="." default="inst">
+
+    <!-- PROPERTY -->
+    <property file="build.properties"/>
+
+    <property name="build.classes.dir" value="${build.dir}/classes"/>
+    <property name="config.metainf.dir" value="${config.dir}/META-INF"/>
+    <property name="content.webinf.dir" value="${content.dir}/WEB-INF"/>
+
+    <property name="jboss.conf.dir" value="${jboss.home}/server/${jboss.server}/conf"/>
+    <property name="jboss.deploy.dir" value="${jboss.home}/server/${jboss.server}/deploy"/>
+
+    <!-- LIB -->
+    <fileset id="jbossClientLibs" dir="${jboss.home}">
+        <include name="client/ejb3-persistence.jar"/>
+        <include name="client/jboss-ejb3x.jar"/>
+        <include name="client/servlet-api.jar"/>
+    </fileset>
+    <fileset id="jbossAreaLibs" dir="${jboss.home}">
+        <include name="server/area/lib/jsp-api.jar"/>
+    </fileset>
+
+    <fileset id="appCompileLibs" dir="${lib.dir}">
+        <include name="app/compile/commons-logging-1.0.4/*.jar"/>
+    </fileset>
+
+    <fileset id="appRuntimeLibs" dir="${lib.dir}">
+        <include name="app/runtime/commons-beanutils-1.7.0/*.jar"/> <!--required for struts -->
+        <include name="app/runtime/commons-digester-1.6/*.jar"/> <!--required for struts -->
+        <include name="app/runtime/commons-lang-2.1/*.jar"/>
+        <include name="app/runtime/jstl-1.1.2/*.jar"/>
+        <include name="app/runtime/struts-1.2.9/*.jar"/>
+    </fileset>
+
+
+    <!-- CLASSPATH -->
+    <path id="classPath">
+        <fileset refid="jbossClientLibs"/>
+        <fileset refid="jbossAreaLibs"/>
+        <fileset refid="appCompileLibs"/>
+        <fileset refid="appRuntimeLibs"/>
+    </path>
+
+
+    <!--### BUILD TARGETS ###-->
+
+
+    <!-- Clean -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <!-- Compilation -->
+    <target name="compile">
+        <tstamp/>
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${src.dir}/java" destdir="${build.classes.dir}" debug="${java.compiler.debug}" debuglevel="${java.compiler.debuglevel}">
+            <classpath refid="classPath"/>
+        </javac>
+    </target>
+
+
+    <!-- Common JAR -->
+    <target name="build-common-jar" depends="compile">
+        <jar
+            destfile="${build.dir}/${dist.name}-common.jar"
+            basedir="${build.classes.dir}">
+            <include name="com/mks/domain/**"/>
+        </jar>
+    </target>
+
+    <!-- JavaBeans JAR -->
+    <target name="build-ejb-jar" depends="compile">
+        <jar
+            destfile="${build.dir}/${dist.name}-ejb.jar"
+            basedir="${build.classes.dir}">
+            <include name="com/mks/service/**"/>
+            <metainf dir="${config.metainf.dir}" includes="persistence.xml, ejb-jar.xml"/>
+        </jar>
+    </target>
+
+    <!-- WAR -->
+    <target name="copyAppLibs">
+        <copy todir="${build.dir}/warlib" flatten="true">
+            <fileset refid="appRuntimeLibs"/>
+        </copy>
+    </target>
+    <target name="build-war" depends="compile, copyAppLibs">
+        <war
+            destFile="${build.dir}/${dist.name}.war"
+            webxml="${content.webinf.dir}/web.xml">
+
+            <fileset dir="${content.dir}" excludes="css/**, WEB-INF/web.xml" />
+
+            <classes dir="${src.dir}" includes="resources/**/*.properties"/>
+            <classes dir="${build.classes.dir}">
+                <include name="com/mks/app/**"/>
+            </classes>
+
+            <lib dir="${build.dir}/warlib"/>
+        </war>
+    </target>
+
+    <!-- EAR -->
+    <target name="build-ear" depends="build-common-jar, build-ejb-jar, build-war">
+        <delete dir="${dist.dir}" failonerror="false"/>
+        <mkdir dir="${dist.dir}"/>
+        <ear
+            destFile="${dist.dir}/${dist.name}.ear"
+            appxml="${config.metainf.dir}/application.xml" >
+
+            <fileset dir="${build.dir}">
+                <include name="${dist.name}-common.jar"/>
+                <include name="${dist.name}-ejb.jar"/>
+                <include name="${dist.name}.war"/>
+            </fileset>
+
+            <!--<zipfileset dir="${build.dir}/lib" prefix="lib"/>-->
+
+            <!--<metainf dir="${config.metainf.dir}" includes="jboss-app.xml"/>-->
+        </ear>
+    </target>
+
+
+
+    <target name="inst" depends="build-ear">
+        <copy todir="${jboss.deploy.dir}" file="${dist.dir}/${dist.name}.ear"/>
+    </target>
+
+    <target name="config">
+        <copy todir="${jboss.conf.dir}" file="${config.dir}/jboss/jboss-log4j.xml"/>
+        <copy todir="${jboss.deploy.dir}" file="${config.dir}/jboss/mks-hsqldb-ds.xml"/>
+    </target>
+
+    <target name="all" depends="clean, inst, config"/>
+
+</project>

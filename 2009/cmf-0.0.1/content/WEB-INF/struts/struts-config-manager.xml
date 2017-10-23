@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+        "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+    <!-- ================== Form Bean Definitions ====================== -->
+    <form-beans>
+
+        <form-bean name="entityForm" type="com.mks.app.form.manager.EntityForm" />
+
+        <form-bean name="selectForm" type="com.mks.app.form.manager.SelectForm" />
+
+    </form-beans>
+
+    <!-- ================ Global Forward Definitions =================== -->
+    <global-forwards>
+
+        <forward
+            name="home" path="/" redirect="true" />
+
+    </global-forwards>
+
+    <!-- =============== Action Mapping Definitions ================== -->
+    <action-mappings>
+
+        <action
+            path="/"
+            type="com.mks.app.action.manager.HomeAction">
+            <forward
+                name="next" path=".manager.home" />
+            </action>
+
+        <!-- Usage: /search/URL/ -->
+        <action
+            path="/search/*/"
+            type="com.mks.app.action.manager.SearchAction"
+            parameter="{1}">
+            <forward
+                name="next" path=".manager.searchResults" />
+            </action>
+
+        <!-- Usage: /add/URL/ -->
+        <action
+            path="/add/*/"
+            type="com.mks.app.action.manager.AddAction"
+            parameter="{1}">
+            <forward
+                name="next" path="/show/" redirect="true" />
+            </action>
+
+        <!-- Usage: /edit/URL/ID/ -->
+        <action
+            path="/edit/*/*/"
+            type="com.mks.app.action.manager.EditAction"
+            parameter="{1}/{2}">
+            <forward
+                name="next" path="/show/" redirect="true" />
+            </action>
+
+        <!-- Usage: /show/ -->
+        <action
+            path="/show/"
+            type="com.mks.app.action.manager.ShowAction">
+            <forward
+                name="next" path=".manager.editEntity" />
+            </action>
+
+        <!-- Usage: /update/ -->
+        <action
+            path="/update/"
+            type="com.mks.app.action.manager.UpdateAction"
+            name="entityForm"
+            scope="request"
+            input="/show/">
+            <set-property
+                    property="cancellable" value="true" />
+            </action>
+
+        <!-- Usage: /remove/URL/ID/ -->
+        <action
+            path="/remove/*/*/"
+            type="com.mks.app.action.manager.RemoveAction"
+            parameter="{1}/{2}"
+            input="/search/{1}/">
+            <forward
+                name="next" path="/search/{1}/" redirect="true" />
+            </action>
+
+        <!-- Usage: /add-item/?associationName=NAME -->
+        <action
+            path="/add-item/"
+            type="com.mks.app.action.manager.AddItemAction"
+            name="entityForm"
+            scope="request" />
+
+        <!-- Usage: /select/ -->
+        <action
+            path="/select/"
+            type="com.mks.app.action.manager.SelectAction"
+            name="selectForm"
+            scope="request">
+            <set-property
+                    property="cancellable" value="true" />
+            </action>
+
+        <!-- Usage: /remove-item/?associationName=NAME&itemIndex=INDEX -->
+        <action
+            path="/remove-item/"
+            type="com.mks.app.action.manager.RemoveItemAction"
+            name="entityForm"
+            scope="request">
+            <forward
+                name="next" path="/show/" redirect="true" />
+            </action>
+
+        <!-- Usage: /edit-item/?associationName=NAME&itemIndex=INDEX -->
+        <action
+            path="/edit-item/"
+            type="com.mks.app.action.manager.EditItemAction"
+            name="entityForm"
+            scope="request" />
+
+    </action-mappings>
+
+    <controller nocache="true" inputForward="false" maxFileSize="1M" />
+
+    <message-resources parameter="resources.application" null="false" />
+
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property property="definitions-config"
+                      value="/WEB-INF/struts/tiles-defs.xml, /WEB-INF/struts/tiles-defs-manager.xml" />
+        <set-property property="definitions-debug" value="2"/>
+        <set-property property="definitions-parser-details" value="2" />
+        <set-property property="definitions-parser-validate" value="true" />
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+
+</struts-config>
